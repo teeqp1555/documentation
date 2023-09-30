@@ -1291,7 +1291,7 @@ report showing how many users you have, and when a user was last logged in::
 You can create a new user with their display name, login name, and any group
 memberships with the ``user:add`` command. The syntax is::
 
- user:add [--password-from-env] [--display-name[="..."]] [-g|--group[="..."]]
+ user:add [--password-from-env] [--display-name[="..."]] [-g|--group[="..."]] [--email EMAIL]
  uid
 
 The ``display-name`` corresponds to the **Full Name** on the Users page in your
@@ -1341,6 +1341,20 @@ You may also use ``password-from-env`` to reset passwords::
  su -s /bin/sh www-data -c 'php occ user:resetpassword --password-from-env
    layla'
    Successfully reset password for layla
+
+The ``email`` option allows you to set the user's email address when creating
+the user. This can be used in conjunction with the ``password-from-env`` option
+to create users with a password from the environment variables and email address
+from the command line.
+
+In the case you don't provide the ``password-from-env`` option, the command will
+auto generate a temporary password and send a link to to the user's email
+address to set a new password::
+
+ sudo -u www-data php occ user:add layla --email layla@example.tld
+  Setting a temporary password.
+  The user "layla" was created successfully
+  Invitation E-Mail sent to layla@example.tld
 
 You can delete users::
 
